@@ -1,0 +1,200 @@
+* {
+  user-select: none;
+  outline: none;
+}
+
+html[theme="dark-mode"] {
+  /* ! 다크테마 기능을 사용하기 위한 css 설정  */
+  filter: invert(100%) hue-rotate(180deg);
+}
+
+body {
+  background-color: white;
+}
+
+.container {
+  width: 1050px;
+  margin: auto;
+}
+
+.keyboard {
+  background-color: gray;
+  color: gray;
+  width: 1050px;
+  border-radius: 4px;
+}
+
+.row {
+  /* ! row가 플렉스 컨테이너, 자식요소들이 플렉스 아이템이라고 하는데
+  플렉스 컨테이너 안에서 다른 설정이 없다면 플렉스 아이템들이 가로방향으로 정렬하게 된다.
+  키보드가 나란히 있는 것을 설정하기 위해 flex를 줌.  */
+  display: flex;
+}
+
+.key {
+  width: 60px;
+  height: 60px;
+  margin: 5px;
+  background-color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  /* !여기에서 flex를 준 이유는  align-item, justify-content를 사용하기 위해 줌. */
+  display: flex;
+  align-items: center; /* 수직가운데정렬 */
+  justify-content: center; /* 수평가운데정렬 */
+  flex-wrap: wrap; /* 플렉스컨테이너가 더이상 아이템들을 한줄로 담을 여유공간이 없을 때 줄바꿈 처리를 해준다. .key .two-value를 처리하기 위해 설정*/
+  transition: 0.2s; /* .key:hover시 자연스럽게 바뀔 수 있게 설정. */
+  /* ! */
+}
+
+.key:hover {
+  background-color: lightgray;
+}
+
+.key.active {
+  background-color: #333;
+  color: #fff;
+}
+
+.key .two-value {
+  width: 100%;
+  text-align: center;
+}
+
+.fn-key {
+  width: 80px;
+}
+
+.space-key {
+  width: 420px;
+}
+
+.back-space-key {
+  width: 130px;
+}
+
+.tab-key {
+  width: 95px;
+}
+
+.back-slash-key {
+  width: 95px;
+}
+
+.caps-lock-key {
+  width: 110px;
+}
+
+.left-shift-key {
+  width: 145px;
+}
+
+.enter-key {
+  width: 150px;
+}
+
+.right-shift-key {
+  width: 185px;
+}
+
+.menu {
+  /* !메뉴 하위에 플렉스 아이템들이 있는데 본인들의 width를 유지한채로 가로로 나란히 정렬 시키기 위함. */
+  display: flex;
+}
+
+.switch {
+  position: relative;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  display: none;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: gray;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+/* !플렉스 slider 엘리먼트에 가상요소를 넣는 ::,
+가상 요소를 사용하기 위해서는 content에 ""라도 값이 있어야 함.
+switch의 흰색 버튼을 표현*/
+.slider::before { 
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.5s; /*흰색 버튼이 자연스럽게 이동*/
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: black;
+}
+
+input:checked + .slider::before {
+  /* ! '+' : 체크된 인풋 바로 다음에 나오는 형제 요소를 나타낸다
+  흰색 스위를 오른쪽으로 위치 이동, 전체가 라벨로 감싸져 있으니까 흰색버튼을 누르면 이동 */
+  transform: translateX(26px);
+}
+
+.select-box {
+  position: relative;
+  margin-left: 60px;
+  height: 34px;
+}
+
+.select-box select {
+  /* !font 변경, 루트엘리먼트 즉, html의 폰트사이즈의 0.9만큼 상대사이즈로 설정 */
+  font-size: 0.9rem;
+  /* !rem: html의 폰트사이즈가  몇인지에 따라 그 값의 상대적인 값을 입력[50px -> 0.9rem = 45px] 
+  em: 요소의 폰트사이즈에 비례해서 사이즈 입력[100px -> 0.9em = 90px] */
+  padding: 2px 5px;
+  height: 34px;
+  width: 200px;
+}
+
+.input-group {
+  margin: 100px 0px;
+}
+
+.input {
+  border: none;
+  border-bottom: 2px solid lightgrey;
+  width: 1050px;
+  height: 50px;
+  font-size: 30px;
+  text-align: center;
+  display: block;
+}
+
+.error-message {
+  color: #cc0033;
+  font-size: 30px;
+  line-height: 30px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.input-group .error-message {
+  display: none;
+}
+
+.error input {
+  border-bottom: 2px solid red;
+}
+
+.error .error-message {
+  display: block;
+}
